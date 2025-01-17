@@ -1,9 +1,4 @@
-from graphviz import Digraph
-import os
-import uuid
-from datetime import datetime
 
-    
 def floats_are_equal(a, b, eps=1e-3):
     #Returns True if a and b are within eps of each other
     return abs(a - b) < eps
@@ -323,49 +318,3 @@ class RedBlackTree:
                 current = current.right
         return current if current != self.NIL_LEAF else None
 
-class VisualRedBlackTree(RedBlackTree):
-    def __init__(self):
-        super().__init__()
-        self.dot = Digraph(comment="Red-Black Tree")
-        # self.output_folder = self._create_output_folder()
-
-    def _create_output_folder(self):
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        folder_name = f"Red_Black_{timestamp}"
-        output_path = os.path.join(current_dir, folder_name)
-        os.makedirs(output_path, exist_ok=True)
-        return output_path
-
-    def visualize_tree(self):
-        self.dot = Digraph(comment="Red-Black Tree")  # Reset graph
-        self._add_nodes_edges(self.root)
-        file_name = f"rb_tree_{uuid.uuid4()}.png"
-        file_path = os.path.join(self.output_folder, file_name)
-        self.dot.render(file_path, format="png", cleanup=True)
-        print(f"Tree visualization saved as {file_path}")
-
-    def _add_nodes_edges(self, node):
-        if node == self.NIL_LEAF:
-            return
-        
-        color = "black" if node.color == "BLACK" else "red"
-        self.dot.node(str(id(node)), label=str(node.data), color=color, fontcolor=color)
-
-        if node.left != self.NIL_LEAF:
-            self.dot.edge(str(id(node)), str(id(node.left)), label="L")
-            self._add_nodes_edges(node.left)
-        
-        if node.right != self.NIL_LEAF:
-            self.dot.edge(str(id(node)), str(id(node.right)), label="R")
-            self._add_nodes_edges(node.right)
-
-    def insert(self, data):
-        print(f"Inserting {data}")
-        super().insert(data)
-        self.visualize_tree()
-        
-    def delete(self , data):
-        print(f"deleting {data}")
-        super().delete(data)
-        self.visualize_tree()
