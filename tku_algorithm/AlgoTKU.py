@@ -252,7 +252,7 @@ class AlgoTKU:
 
 
     def BuildUPTree(self, P1, HDB):
-        NodeCountHeap = RedBlackTree.VisualRedBlackTree()
+        NodeCountHeap = RedBlackTree.RedBlackTree()
         tree = self.FPtree(self)
         # Create an instance of FPtree with the root node
 
