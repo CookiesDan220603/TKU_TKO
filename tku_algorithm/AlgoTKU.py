@@ -66,7 +66,7 @@ class AlgoTKU:
             # Calculate how many nodes in the UP-Tree
             tree.traverse_tree(tree.root, 0)
 
-            DSNodeCountHeap = RedBlackTree.VisualRedBlackTree()
+            DSNodeCountHeap = RedBlackTree.RedBlackTree()
 
             for child in tree.root.childLink:
                 Sum_DS = [0] * self.itemCount
@@ -78,8 +78,8 @@ class AlgoTKU:
                         DS_Value = (self.arrayMIU[j] + self.arrayMIU[DSItem]) * sum_ds
                         self.UpdateNodeCountHeap(DSNodeCountHeap, DS_Value)
 
-            DSNodeCountHeap = RedBlackTree.VisualRedBlackTree()
-            ISNodeCountHeap = RedBlackTree.VisualRedBlackTree()
+            DSNodeCountHeap = RedBlackTree.RedBlackTree()
+            ISNodeCountHeap = RedBlackTree.RedBlackTree()
 
             self.getUlist(self.arrayTWUItems, ulist)
             prefix = ""
